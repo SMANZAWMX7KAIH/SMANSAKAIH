@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMAN7KAIH — 7 Kebiasaan Anak Indonesia Hebat (Edisi SMA)</title>
+  <meta name="description" content="SMAN7KAIH: Platform produktivitas dan pembentukan karakter 7 Kebiasaan Anak Indonesia Hebat versi Remaja dan Siswa SMA. Terintegrasi 13 Kolom Google Sheets (WIT Wamena). Developed by ESRON PASARIBU.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Modern: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-indigo-100 selection:text-indigo-900 antialiased">
+
+  <!-- Floating Toast Notification Feedback -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs sm:text-sm font-medium px-4 py-3 rounded-xl shadow-xl border border-slate-700 hidden items-center gap-2.5 transition-all">
+    <span id="toast-icon" class="text-emerald-400 font-bold">✓</span>
+    <span id="toast-text">Pemberitahuan</span>
+  </div>
+
+  <div id="app" class="flex-1 flex flex-col">
+
+    <!-- ======================================================= -->
+    <!-- 1. MENU LOGIN SMAN7KAIH                                 -->
+    <!-- ======================================================= -->
+    <section id="screen-login" class="flex-1 flex flex-col justify-center items-center p-6 sm:p-10 max-w-xl mx-auto w-full">
+      <div class="w-full text-center mb-8">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 bg-indigo-50 border border-indigo-200/80 rounded-full text-xs font-semibold text-indigo-700 mb-4">
+          <span>🇮🇩</span>
+          <span>Platform Pembentukan Karakter Siswa SMA</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          SMAN<span class="text-indigo-600" style="color: #4f46e5;">7KAIH</span>
+        </h1>
+        <p class="text-xs sm:text-sm font-bold text-slate-600 uppercase tracking-wider mt-1">
+          7 Kebiasaan Anak Indonesia Hebat • Edisi SMA
+        </p>
+        <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mt-2 leading-relaxed">
+          Membangun karakter pemuda unggul berintegritas melalui kedisiplinan diri, kerukunan spiritual, literasi kritis, dan gaya hidup sehat.
+        </p>
+      </div>
+
+      <div class="w-full bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-slate-200">
+        <div class="border-b border-slate-100 pb-4 mb-6">
+          <h2 class="text-lg font-bold text-slate-900">Masuk ke Sesi Produktivitas</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Lengkapi identitas diri Anda untuk memulai pencatatan harian</p>
+        </div>
+
+        <form id="form-login" class="space-y-5">
+          <!-- Field 1: Nama Lengkap -->
+          <div>
+            <label for="input-fullname" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              Nama Lengkap
+            </label>
+            <input
+              type="text"
+              id="input-fullname"
+              required
+              placeholder="Masukkan nama lengkap siswa..."
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none text-slate-900 font-medium text-sm transition-all"
+            />
+          </div>
+
+          <!-- Field 2: JENJANG / KELAS (Input Teks Bebas) -->
+          <div>
+            <label for="input-grade" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">
+              JENJANG / KELAS
+            </label>
+            <input
+              type="text"
+              id="input-grade"
+              required
+              placeholder="Contoh: X-9, X-10, XI-2, XII-1"
+              class="w-full px-4 py-3 rounded-xl border border-slate-300 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none text-slate-900 font-medium text-sm transition-all"
+            />
+            <p class="text-[11px] text-slate-400 mt-1.5">
+              Ketik nama kelas Anda secara bebas, contoh: X-9, X-10, XI-1, XII-1.
+            </p>
+          </div>
+
+          <!-- Indikator Integrasi Google Sheets & Zona Waktu WIT -->
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2 text-xs">
+            <div class="flex items-center justify-between text-slate-600">
+              <span class="font-semibold text-slate-800">📍 Zona Waktu Resmi:</span>
+              <span class="font-mono text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-100 font-bold">
+                Asia/Jayapura (WIT)
+              </span>
+            </div>
+            <div class="flex items-start gap-2 text-slate-500 text-[11px] pt-1 border-t border-slate-200/70">
+              <span class="text-emerald-600">📊</span>
+              <span>Integrasi 13 Kolom: Waktu, Nama, Kelas, Poin, dikerjakan/tidak, Total Poin, Pertanyaan 1 s.d. 7.</span>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            id="btn-login-submit"
+            class="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm active:scale-[0.99]"
+          >
+            <span>Masuk ke Dashboard</span>
+            <span>→</span>
+          </button>
+        </form>
+
+        <!-- Widget Jam & Credit Teks Pembuat di Bagian Bawah Kartu Login -->
+        <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-400 font-mono">
+          <span class="flex items-center gap-1.5">
+            <span class="text-indigo-500 font-bold">⏰</span>
+            <span id="login-clock" class="font-bold text-slate-700">00:00:00 WIT</span>
+            <span class="text-slate-300">•</span>
+            <span id="login-date" class="font-sans text-slate-500">Tanggal Hari Ini</span>
+          </span>
+          <span class="text-slate-600 font-semibold font-sans">
+            Developed by <span class="text-slate-800 font-bold uppercase">ESRON PASARIBU</span>
+          </span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- 2. POP-UP MOTIVASI AWAL SETELAH LOGIN (MODAL)           -->
+    <!-- ======================================================= -->
+    <div id="modal-welcome" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="max-w-lg w-full bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200">
+        <div class="w-12 h-12 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center mb-5 text-xl">
+          ✨
+        </div>
+
+        <span class="text-xs font-bold text-indigo-600 tracking-wider uppercase">
+          Komitmen Karakter Pemuda
+        </span>
+        <h2 class="text-2xl font-bold text-slate-900 mt-1 mb-4">
+          Halo, <span id="welcome-name" class="text-indigo-600">Siswa</span>.
+        </h2>
+
+        <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-5 mb-6 text-slate-700 text-sm leading-relaxed">
+          <p id="welcome-quote" class="italic font-serif text-slate-800">
+            “Halo, [Nama]. Disiplin hari ini adalah investasi masa depanmu. Konsistensi dalam 7 kebiasaan hebat akan membentuk karakter pemimpin masa depan.”
+          </p>
+          <div class="mt-3 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 font-sans">
+            <span id="welcome-grade" class="font-semibold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-md border border-indigo-100">
+              Kelas: X-9
+            </span>
+            <span id="welcome-time" class="font-mono text-slate-600">Target: 7 Pilar • 7 Poin</span>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          id="btn-modal-start"
+          onclick="closeWelcomeModal()"
+          class="w-full py-3.5 px-4 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold text-sm flex items-center justify-center gap-2 shadow-sm transition-all cursor-pointer active:scale-[0.99]"
+        >
+          <span>Mulai Sesi Hari Ini</span>
+          <span>→</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- MODAL INFORMASI GOOGLE SHEETS & PENGUJIAN (13 KOLOM)    -->
+    <!-- ======================================================= -->
+    <div id="modal-sheets" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
+      <div class="max-w-xl w-full bg-white rounded-2xl p-6 sm:p-7 shadow-xl border border-slate-200">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl">📊</span>
+            <div>
+              <h3 class="text-base font-bold text-slate-900">Integrasi 13 Kolom Google Sheets</h3>
+              <p class="text-xs text-slate-500">Pencatatan waktu 24 jam WIT, nama, poin & centang Pertanyaan 1-7</p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="toggleSheetsModal(false)"
+            class="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer font-bold text-sm"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="space-y-4 text-xs text-slate-600 leading-relaxed">
+          <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2">
+            <span class="font-bold text-slate-800 uppercase tracking-wider block text-[11px]">
+              Daftar 13 Kolom Spreadsheet:
+            </span>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5 text-[11px] font-mono text-slate-700">
+              <span class="bg-white px-2 py-1 rounded border">1. Waktu</span>
+              <span class="bg-white px-2 py-1 rounded border">2. Nama Siswa</span>
+              <span class="bg-white px-2 py-1 rounded border">3. Kelas</span>
+              <span class="bg-white px-2 py-1 rounded border">4. Poin</span>
+              <span class="bg-white px-2 py-1 rounded border">5. dikerjakan/tidak</span>
+              <span class="bg-white px-2 py-1 rounded border">6. Total Poin</span>
+              <span class="bg-white px-2 py-1 rounded border text-indigo-700">7. Pertanyaan 1</span>
+              <span class="bg-white px-2 py-1 rounded border text-indigo-700">8. Pertanyaan 2</span>
+              <span class="bg-white px-2 py-1 rounded border text-indigo-700">9. Pertanyaan 3</span>
+              <span class="bg-white px-2 py-1 rounded border text-indigo-700">10. Pertanyaan 4</span>
+              <span class="bg-white px-2 py-1 rounded border text-indigo-700">11. Pertanyaan 5</span>
+              <span class="bg-white px-2 py-1 rounded border text-indigo-700">12. Pertanyaan 6</span>
+              <span class="bg-white px-2 py-1 rounded border text-indigo-700 col-span-2 sm:col-span-1">13. Pertanyaan 7</span>
+            </div>
+          </div>
+
+          <div class="p-3 bg-emerald-50/70 border border-emerald-200 rounded-xl space-y-1">
+            <span class="font-bold text-emerald-900 block">Status Transmisi Terakhir:</span>
+            <div id="sheets-sync-status-text" class="text-emerald-800 font-mono text-[11px]">
+              Siap mengirim data ke Apps Script Web App
+            </div>
+          </div>
+
+          <!-- Data Identitas Siswa Aktif -->
+          <div class="p-3 bg-indigo-50 border border-indigo-100 rounded-xl space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-indigo-900">Siswa Aktif:</span>
+              <span id="sheets-user-fullname" class="font-semibold text-indigo-800">-</span>
+            </div>
+            <div class="flex items-center justify-between font-mono text-[11px] text-indigo-700">
+              <span>Status Aktivitas:</span>
+              <span id="sheets-user-status" class="font-bold">Belum dikerjakan (0/7 Poin)</span>
+            </div>
+          </div>
+
+          <!-- Tombol Uji Koneksi Siswa Aktif -->
+          <div class="p-3.5 bg-slate-100 rounded-xl border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>
+              <span class="font-bold text-slate-900 block text-xs">Uji Koneksi Data Siswa:</span>
+              <span class="text-[11px] text-slate-500">Menguji kirim status terkini sesuai nama dan kelas yang aktif</span>
+            </div>
+            <button
+              type="button"
+              onclick="testConnectionActiveStudent()"
+              class="w-full sm:w-auto px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer active:scale-95 shadow-xs"
+            >
+              <span>Kirim Data Uji</span>
+            </button>
+          </div>
+
+          <p class="text-[11px] text-slate-400 italic">
+            *Format Tanggal Google Sheets: <strong>dd/MM/yyyy HH:mm:ss</strong> (24 jam, zona waktu Asia/Jayapura).
+          </p>
+        </div>
+
+        <div class="mt-5 pt-3 border-t border-slate-100 flex justify-end">
+          <button
+            type="button"
+            onclick="toggleSheetsModal(false)"
+            class="px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-semibold text-xs cursor-pointer"
+          >
+            Tutup
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================================================= -->
+    <!-- 3. HALAMAN UTAMA DASHBOARD SMAN7KAIH                     -->
+    <!-- ======================================================= -->
+    <section id="screen-dashboard" class="hidden flex-1 flex flex-col">
+      <!-- Header Dashboard -->
+      <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-4">
+          <!-- Sapaan Personal -->
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold text-sm tracking-tight shadow-xs">
+              7K
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-base font-bold text-slate-900 tracking-tight">SMAN7KAIH</span>
+                <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-md font-medium border border-indigo-200">
+                  Edisi SMA
+                </span>
+              </div>
+              <p class="text-xs text-slate-600 font-medium mt-0.5">
+                Halo, <span id="dash-user" class="font-bold text-slate-900">Nama Siswa</span> — <span id="dash-grade" class="text-indigo-600 font-semibold">Kelas</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- WIDGET JAM & TANGGAL LIVE (Asia/Jayapura - Wamena, Papua / WIT) -->
+          <div class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 flex items-center gap-3">
+            <span class="text-indigo-600 font-bold">⏰</span>
+            <div class="text-left font-mono">
+              <span id="live-clock" class="text-sm font-bold text-slate-900 tabular-nums">00:00:00</span>
+              <span class="text-[10px] font-bold text-indigo-600 ml-1">WIT</span>
+            </div>
+            <div class="h-4 w-px bg-slate-300"></div>
+            <div class="text-xs font-medium text-slate-600 flex items-center gap-1.5 font-sans">
+              <span class="text-slate-400">📅</span>
+              <span id="live-date">Tanggal Hari Ini</span>
+            </div>
+          </div>
+
+          <!-- Header Actions: Sheets Info, Skor, Tombol Motivasi, Reset, Logout -->
+          <div class="flex items-center gap-2">
+            <!-- Badge Google Sheets -->
+            <button
+              type="button"
+              onclick="toggleSheetsModal(true)"
+              class="px-3 py-1.5 text-xs font-semibold rounded-xl border border-slate-200 bg-slate-50 hover:bg-indigo-50 text-slate-700 hover:text-indigo-700 flex items-center gap-1.5 cursor-pointer transition-colors"
+              title="Lihat status integrasi Google Sheets"
+            >
+              <span>📊</span>
+              <span class="hidden md:inline">Sheets</span>
+              <span id="sheets-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            </button>
+
+            <!-- Skor Poin Badge -->
+            <div class="flex items-center gap-1.5 bg-indigo-50 border border-indigo-200/80 px-3 py-1.5 rounded-xl">
+              <span class="text-xs font-bold text-indigo-700 uppercase">Poin:</span>
+              <span id="header-points" class="text-sm font-extrabold text-indigo-900 font-mono tabular-nums">0 / 7</span>
+            </div>
+
+            <!-- 1. Tombol Motivasi -->
+            <button
+              type="button"
+              id="btn-header-motivasi"
+              onclick="openMotivationModal()"
+              class="px-3 py-2 text-xs font-semibold text-slate-700 hover:text-indigo-700 bg-slate-100 hover:bg-indigo-50 rounded-xl border border-slate-200 hover:border-indigo-200 cursor-pointer transition-colors flex items-center gap-1.5 active:scale-95"
+              title="Tampilkan Kembali Pop-up Motivasi"
+            >
+              <span>✨</span>
+              <span>Motivasi</span>
+            </button>
+
+            <!-- 2. Tombol Reset Checklist -->
+            <button
+              type="button"
+              id="btn-header-reset"
+              onclick="resetTodayChecklist()"
+              class="px-3 py-2 text-xs font-semibold text-amber-700 hover:text-amber-800 bg-amber-50 hover:bg-amber-100 rounded-xl border border-amber-200 cursor-pointer transition-colors active:scale-95 flex items-center gap-1.5"
+              title="Reset Checklist Hari Ini (Kembali ke 0 Poin)"
+            >
+              <span>🔄</span>
+              <span>Reset</span>
+            </button>
+
+            <!-- 3. Tombol Logout -->
+            <button
+              type="button"
+              id="btn-header-logout"
+              onclick="logoutUser()"
+              class="px-3 py-2 text-rose-600 hover:bg-rose-50 rounded-xl border border-rose-200 text-xs font-semibold transition-colors flex items-center gap-1.5 cursor-pointer active:scale-95"
+              title="Keluar / Ganti Akun (Hapus Data Sesi & Kembali ke Login)"
+            >
+              <span>🚪</span>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Dashboard Body -->
+      <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+        <!-- Metric Strip -->
+        <section class="grid grid-cols-1 md:grid-cols-12 gap-5">
+          <!-- Total Skor: 1 Poin per Tugas -->
+          <div class="md:col-span-4 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <span class="text-xs font-bold text-slate-500 uppercase tracking-wider block">Total Skor Produktivitas</span>
+              <div class="flex items-baseline gap-2 mt-2">
+                <span id="total-points" class="text-4xl font-extrabold text-slate-900 font-mono tracking-tight tabular-nums">0</span>
+                <span class="text-sm font-semibold text-slate-400">/ 7 Poin</span>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span class="font-medium text-slate-500">Status Pengerjaan:</span>
+              <span id="dash-status-badge" class="font-bold px-2 py-0.5 rounded-md border font-mono text-slate-500 bg-slate-100 border-slate-200">
+                Belum dikerjakan
+              </span>
+            </div>
+          </div>
+
+          <!-- Tingkat Ketercapaian -->
+          <div class="md:col-span-8 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Target Harian Siswa SMA</span>
+                <span id="badge-tier" class="text-xs font-bold px-2.5 py-1 rounded-lg border bg-slate-50 text-slate-600 border-slate-200">
+                  0 / 7 Selesai
+                </span>
+              </div>
+              <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden p-0.5 border border-slate-200/60">
+                <div id="progress-bar" class="h-full rounded-full bg-slate-700 transition-all duration-500" style="width: 0%;"></div>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+              <span id="progress-text" class="text-slate-500">Konsistensi membentuk karakter dan masa depan gemilang.</span>
+              <span id="progress-percent" class="font-mono font-bold text-slate-700 tabular-nums">0%</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Grid 7 Kebiasaan (Pertanyaan 1 - 7) & Activity Log -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <!-- 7 Pilar Cards -->
+          <div class="lg:col-span-8 space-y-4">
+            <div class="flex items-center justify-between pb-2 border-b border-slate-200">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-indigo-600"></span>
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-900">7 Pilar Karakter SMAN7KAIH (Pertanyaan 1 - 7)</h2>
+              </div>
+              <span class="text-xs text-slate-500 font-medium">Selesaikan dan dapatkan 1 poin per kebiasaan</span>
+            </div>
+
+            <div id="habits-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <!-- Dynamically rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Sidebar: Activity Log Panel -->
+          <div class="lg:col-span-4 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm sticky top-24">
+            <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+              <div class="flex items-center gap-2">
+                <span class="text-indigo-600">📜</span>
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-900">Riwayat Aktivitas Hari Ini</h3>
+              </div>
+              <span id="log-counter" class="text-xs font-mono font-bold text-slate-500">0/7 Pilar</span>
+            </div>
+
+            <div id="log-list" class="space-y-3 max-h-[460px] overflow-y-auto pr-1 custom-scroll">
+              <!-- Dynamically populated via JS -->
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-100 flex flex-col gap-1 text-xs text-slate-500">
+              <div class="flex items-center justify-between">
+                <span class="flex items-center gap-1.5">
+                  <span class="text-emerald-600">📊</span>
+                  <span>Sinkron Google Sheets (13 Kolom)</span>
+                </span>
+                <span id="sync-indicator-label" class="font-mono text-emerald-600 font-bold">Otomatis</span>
+              </div>
+              <span id="sync-subtext" class="text-[10px] text-slate-400 font-mono truncate">Zona Waktu: Asia/Jayapura (WIT)</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- 4. CREDIT FOOTER HALAMAN UTAMA -->
+      <footer class="bg-white border-t border-slate-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
+            <span class="font-semibold text-slate-700">SMAN7KAIH</span>
+            <span>•</span>
+            <span>7 Kebiasaan Anak Indonesia Hebat (Edisi SMA)</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <button
+              type="button"
+              onclick="toggleSheetsModal(true)"
+              class="text-xs text-indigo-600 hover:underline flex items-center gap-1 cursor-pointer"
+            >
+              <span>📊</span>
+              <span>Info Spreadsheet & Uji</span>
+            </button>
+            <span>•</span>
+            <div class="font-medium text-slate-700 tracking-wide">
+              Developed by <span class="font-bold text-slate-900 uppercase">ESRON PASARIBU</span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </section>
+  </div>
+
+  <script>
+    // Endpoint Google Apps Script Web App Resmi SMANKAIH
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwK_ev2yzIhyXp4hO36aa-DEe2lOX7fDwZxHExEfYLM-t6d2dIkMJqTlxu5hHGkWzOQvw/exec';
+    const OFFICIAL_TIMEZONE = 'Asia/Jayapura'; // WIT (Wamena, Papua)
+
+    // Data 7 Pilar Kebiasaan (Pertanyaan 1 s.d. 7)
+    const HABITS = [
+      {
+        id: 1,
+        number: '01',
+        questionNumber: 'Pertanyaan 1',
+        title: 'Bangun Pagi',
+        subtitle: 'Optimalisasi Ritme Sirkadian & Disiplin Diri',
+        description: 'Bangun lebih awal sebelum fajar di kamar yang rapi, menyambut sinar matahari pagi dengan penuh kesegaran kognitif dan kesiapan mental untuk memulai hari.',
+        principle: 'Disiplin bangun pagi adalah fondasi karakter pemenang dan ketajaman fokus akademis sepanjang hari.',
+        icon: '☀️',
+        tag: 'Disiplin Waktu',
+        imageUrl: '/images/pilar_01_bangun_pagi.jpg'
+      },
+      {
+        id: 2,
+        number: '02',
+        questionNumber: 'Pertanyaan 2',
+        title: 'Beribadah',
+        subtitle: 'Nilai Ketuhanan Universal & Kerukunan Beragama',
+        description: 'Menunaikan kewajiban ibadah dan doa sesuai keyakinan masing-masing (Islam, Kristen Protestan, Katolik, Hindu, Buddha, Konghucu) dengan menjunjung tinggi toleransi, ketenangan batin, dan budi pekerti luhur.',
+        principle: 'Sila Pertama Pancasila: Ketakwaan pada Tuhan Yang Maha Esa dan saling menghormati antarsesama dalam keharmonisan bangsa.',
+        icon: '🤲',
+        tag: 'Karakter & Iman',
+        imageUrl: '/images/pilar_02_beribadah.jpg'
+      },
+      {
+        id: 3,
+        number: '03',
+        questionNumber: 'Pertanyaan 3',
+        title: 'Berolahraga',
+        subtitle: 'Ketahanan Fisik, Stamina & Kerja Sama Tim',
+        description: 'Melakukan gerak aktif, olahraga lari, sepak bola, atau latihan kebugaran di lingkungan sekolah untuk menjaga stamina prima dan memperlancar sirkulasi darah ke otak.',
+        principle: 'Mens sana in corpore sano: pikiran produktif dan emosi stabil bertumpu pada tubuh yang bugar.',
+        icon: '🏃‍♂️',
+        tag: 'Kesehatan Fisik',
+        imageUrl: '/images/pilar_03_berolahraga.jpg'
+      },
+      {
+        id: 4,
+        number: '04',
+        questionNumber: 'Pertanyaan 4',
+        title: 'Makan Sehat dan Bergizi',
+        subtitle: 'Nutrisi Berimbang untuk Efisiensi Kognitif Otak',
+        description: 'Mengonsumsi makanan bergizi seimbang khas Indonesia: nasi, sayuran segar, lauk berprotein (ayam, ikan, tempe, tahu), buah-buahan segar, dan mencukupi asupan air putih.',
+        principle: 'Makanan sehat dan bergizi adalah bahan bakar terbaik bagi metabolisme dan konsentrasi belajar optimal.',
+        icon: '🥗',
+        tag: 'Manajemen Energi',
+        imageUrl: '/images/pilar_04_makan_sehat.jpg'
+      },
+      {
+        id: 5,
+        number: '05',
+        questionNumber: 'Pertanyaan 5',
+        title: 'Gemar Belajar',
+        subtitle: 'Literasi Kritis, Rasa Ingin Tahu & Diskusi Ilmiah',
+        description: 'Membaca buku literatur, aktif berdiskusi di perpustakaan sekolah, mengeksplorasi wawasan baru, dan mengerjakan tugas dengan tekun demi meraih cita-cita masa depan.',
+        principle: 'Rasa ingin tahu dan budaya literasi membuka jendela wawasan global serta daya nalar berpikir kritis.',
+        icon: '📖',
+        tag: 'Intelektualitas',
+        imageUrl: '/images/pilar_05_gemar_belajar.jpg'
+      },
+      {
+        id: 6,
+        number: '06',
+        questionNumber: 'Pertanyaan 6',
+        title: 'Bermasyarakat',
+        subtitle: 'Gotong Royong, Kepedulian Sosial & Persahabatan',
+        description: 'Aktif bergotong royong membersihkan lingkungan sekolah, saling membantu rekan yang kesulitan, dan berkontribusi positif dalam kegiatan sosial kemasyarakatan.',
+        principle: 'Kepemimpinan sejati dibentuk dari kerendahan hati melayani sesama dan memupuk semangat kebersamaan.',
+        icon: '🤝',
+        tag: 'Kepemimpinan Sosial',
+        imageUrl: '/images/pilar_06_bermasyarakat.jpg'
+      },
+      {
+        id: 7,
+        number: '07',
+        questionNumber: 'Pertanyaan 7',
+        title: 'Tidur Cepat',
+        subtitle: 'Regenerasi Mental, Sel Tubuh & Istirahat Cukup',
+        description: 'Mempersiapkan diri untuk tidur tepat waktu di kamar yang tenang dan nyaman, mengistirahatkan gawai sebelum tidur demi pemulihan sel dan ketahanan fisik esok hari.',
+        principle: 'Tidur cukup dan berkualitas menjaga ketajaman memori, stabilitas emosional, dan vitalitas masa muda.',
+        icon: '🌙',
+        tag: 'Pemulihan & Siklus',
+        imageUrl: '/images/pilar_07_tidur_cepat.jpg'
+      }
+    ];
+
+    // State Aplikasi Asli (Tanpa Dummy)
+    let currentUser = {
+      id: '',
+      name: '',
+      grade: ''
+    };
+    let completedRecords = [];
+
+    // Helper Waktu Asia/Jayapura (WIT - Wamena, Papua)
+    function getJayapuraParts(date = new Date()) {
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: OFFICIAL_TIMEZONE,
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      }).formatToParts(date);
+
+      const getVal = type => parts.find(p => p.type === type)?.value || '';
+      return {
+        day: getVal('day'),
+        month: getVal('month'),
+        year: getVal('year'),
+        hour: getVal('hour'),
+        minute: getVal('minute'),
+        second: getVal('second')
+      };
+    }
+
+    // Format 24 Jam Resmi: "dd/MM/yyyy HH:mm:ss"
+    function formatJayapuraTime24(date = new Date()) {
+      const p = getJayapuraParts(date);
+      return `${p.day}/${p.month}/${p.year} ${p.hour}:${p.minute}:${p.second}`;
+    }
+
+    function getJayapuraClock(date = new Date()) {
+      const p = getJayapuraParts(date);
+      return `${p.hour}:${p.minute}:${p.second}`;
+    }
+
+    function getJayapuraIndonesianDate(date = new Date()) {
+      return new Intl.DateTimeFormat('id-ID', {
+        timeZone: OFFICIAL_TIMEZONE,
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      }).format(date);
+    }
+
+    // Toast Feedback
+    function showToast(msg, isWarning = false) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toast-text');
+      const icon = document.getElementById('toast-icon');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      if (icon) {
+        icon.textContent = isWarning ? '⚠️' : '✓';
+        icon.className = isWarning ? 'text-amber-400 font-bold' : 'text-emerald-400 font-bold';
+      }
+      toast.classList.remove('hidden');
+      toast.classList.add('flex');
+      clearTimeout(window.__toastTimeout);
+      window.__toastTimeout = setTimeout(() => {
+        toast.classList.add('hidden');
+        toast.classList.remove('flex');
+      }, 3600);
+    }
+
+    // Pengiriman Data ke Google Apps Script Web App (13 Kolom)
+    async function sendTo13ColumnsSheets(params) {
+      const { studentName, studentGrade, activityPoint, newRecords, habitId, actionType } = params;
+
+      if (!studentName || !studentGrade) {
+        showToast('Peringatan: Nama atau kelas siswa belum terisi lengkap.', true);
+        return false;
+      }
+
+      const dot = document.getElementById('sheets-dot');
+      const label = document.getElementById('sync-indicator-label');
+      const subtext = document.getElementById('sync-subtext');
+      const modalStatus = document.getElementById('sheets-sync-status-text');
+
+      if (dot) dot.className = 'w-2 h-2 rounded-full bg-amber-500 animate-ping';
+      if (label) label.textContent = 'Menyinkronkan...';
+
+      const timestamp24 = formatJayapuraTime24();
+      const completedIds = newRecords.map(r => r.habitId);
+      const totalPoin = newRecords.length;
+      const statusDikerjakan = totalPoin > 0 ? 'Dikerjakan' : 'Belum dikerjakan';
+
+      const payload = {
+        waktu: timestamp24,
+        clientTime: timestamp24,
+        namaSiswa: studentName,
+        name: studentName,
+        nama: studentName,
+        kelas: studentGrade,
+        grade: studentGrade,
+        poin: activityPoint,
+        activityPoint: activityPoint,
+        dikerjakan: statusDikerjakan,
+        statusPengerjaan: statusDikerjakan,
+        totalPoin: totalPoin,
+        totalPoints: totalPoin,
+        p1: completedIds.includes(1) ? '✓' : '',
+        p2: completedIds.includes(2) ? '✓' : '',
+        p3: completedIds.includes(3) ? '✓' : '',
+        p4: completedIds.includes(4) ? '✓' : '',
+        p5: completedIds.includes(5) ? '✓' : '',
+        p6: completedIds.includes(6) ? '✓' : '',
+        p7: completedIds.includes(7) ? '✓' : '',
+        completedIds: completedIds,
+        habitId: habitId,
+        action: actionType,
+        userId: currentUser.id
+      };
+
+      try {
+        await fetch(APPS_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-emerald-500 animate-pulse';
+        if (label) label.textContent = 'Terkirim';
+        if (subtext) subtext.textContent = `Terkirim ke server: ${timestamp24} WIT`;
+        if (modalStatus) modalStatus.textContent = `Data terakhir terkirim (${timestamp24} WIT)`;
+        return true;
+      } catch (err) {
+        console.warn('Google Sheets sync warning:', err);
+        if (dot) dot.className = 'w-2 h-2 rounded-full bg-slate-400';
+        if (label) label.textContent = 'Gagal';
+        if (modalStatus) modalStatus.textContent = 'Gagal transmisi jaringan.';
+        return false;
+      }
+    }
+
+    // Live Jam & Tanggal Indonesia Real-Time (Asia/Jayapura - Wamena, Papua / WIT)
+    function updateClockAndDate() {
+      const now = new Date();
+      const clockStr = `${getJayapuraClock(now)} WIT`;
+      const dateStr = getJayapuraIndonesianDate(now);
+
+      const liveClock = document.getElementById('live-clock');
+      const liveDate = document.getElementById('live-date');
+      const loginClock = document.getElementById('login-clock');
+      const loginDate = document.getElementById('login-date');
+
+      if (liveClock) liveClock.textContent = getJayapuraClock(now);
+      if (liveDate) liveDate.textContent = dateStr;
+      if (loginClock) loginClock.textContent = clockStr;
+      if (loginDate) loginDate.textContent = dateStr;
+    }
+    setInterval(updateClockAndDate, 1000);
+    updateClockAndDate();
+
+    // 1. Submit Form Login
+    function submitLogin() {
+      const nameInput = document.getElementById('input-fullname');
+      const gradeInput = document.getElementById('input-grade');
+      const name = nameInput ? nameInput.value.trim() : '';
+      const grade = gradeInput ? gradeInput.value.trim() : '';
+
+      if (!name || !grade) {
+        showToast('Nama Lengkap dan Jenjang / Kelas wajib diisi terlebih dahulu.', true);
+        return;
+      }
+
+      currentUser.name = name;
+      currentUser.grade = grade;
+
+      const p = getJayapuraParts(new Date());
+      const todayJayapuraStr = `${p.year}-${p.month}-${p.day}`;
+
+      try {
+        localStorage.setItem('7kaih_user_name', name);
+        localStorage.setItem('7kaih_user_grade', grade);
+        localStorage.setItem('7kaih_date', todayJayapuraStr);
+      } catch (err) {
+        console.error(err);
+      }
+
+      openMotivationModal();
+      showToast(`Selamat datang, ${name} (${grade})!`);
+
+      // Kirim Data Login Siswa ke Google Sheets
+      sendTo13ColumnsSheets({
+        studentName: name,
+        studentGrade: grade,
+        activityPoint: 0,
+        newRecords: completedRecords,
+        actionType: 'LOGIN'
+      });
+    }
+
+    // Modal Motivasi: Buka
+    function openMotivationModal() {
+      const welcomeName = document.getElementById('welcome-name');
+      const welcomeGrade = document.getElementById('welcome-grade');
+      const welcomeQuote = document.getElementById('welcome-quote');
+      const welcomeModal = document.getElementById('modal-welcome');
+
+      if (welcomeName) welcomeName.textContent = currentUser.name || 'Siswa';
+      if (welcomeGrade) welcomeGrade.textContent = `Kelas: ${currentUser.grade || '-'}`;
+      if (welcomeQuote) {
+        welcomeQuote.textContent = `“Halo, ${currentUser.name || 'Siswa'}. Disiplin hari ini adalah investasi masa depanmu. Konsistensi dalam 7 kebiasaan hebat akan membentuk karakter pemimpin masa depan.”`;
+      }
+      if (welcomeModal) {
+        welcomeModal.classList.remove('hidden');
+        welcomeModal.classList.add('flex');
+      }
+    }
+
+    // Modal Motivasi: Tutup & Masuk Dashboard
+    function closeWelcomeModal() {
+      const welcomeModal = document.getElementById('modal-welcome');
+      const screenLogin = document.getElementById('screen-login');
+      const screenDashboard = document.getElementById('screen-dashboard');
+
+      if (welcomeModal) {
+        welcomeModal.classList.add('hidden');
+        welcomeModal.classList.remove('flex');
+      }
+      if (screenLogin) screenLogin.classList.add('hidden');
+      if (screenDashboard) screenDashboard.classList.remove('hidden');
+      renderDashboard();
+    }
+
+    function toggleSheetsModal(show) {
+      const modal = document.getElementById('modal-sheets');
+      const nameEl = document.getElementById('sheets-user-fullname');
+      const statusEl = document.getElementById('sheets-user-status');
+      if (nameEl) nameEl.textContent = `${currentUser.name || '-'} (${currentUser.grade || '-'})`;
+      if (statusEl) {
+        const total = completedRecords.length;
+        statusEl.textContent = `${total > 0 ? 'Dikerjakan' : 'Belum dikerjakan'} (${total}/7 Poin)`;
+      }
+      if (!modal) return;
+      if (show) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    // Pengujian Koneksi Menggunakan Data Asli Siswa yang Aktif
+    function testConnectionActiveStudent() {
+      if (!currentUser.name || !currentUser.grade) {
+        showToast('Mohon masukkan nama dan kelas Anda terlebih dahulu.', true);
+        return;
+      }
+
+      showToast(`Menguji koneksi data siswa: ${currentUser.name} (${currentUser.grade})...`);
+
+      sendTo13ColumnsSheets({
+        studentName: currentUser.name,
+        studentGrade: currentUser.grade,
+        activityPoint: 0,
+        newRecords: completedRecords,
+        actionType: 'PING_TEST'
+      });
+      showToast(`✓ Sinyal uji koneksi untuk "${currentUser.name}" terkirim ke Google Sheets!`);
+    }
+
+    // Tandai Selesai Kebiasaan: Menambah 1 Poin & Simpan Centang "✓" ke Google Sheets
+    function markHabitDone(habitId) {
+      if (!currentUser.name || !currentUser.grade) {
+        showToast('Identitas siswa belum lengkap. Silakan login kembali.', true);
+        logoutUser();
+        return;
+      }
+
+      // Cegah penambahan poin ganda jika tombol ditekan berulang kali
+      const exists = completedRecords.find(r => r.habitId === habitId);
+      if (exists) return;
+
+      const timeWIT = `${getJayapuraClock()} WIT`;
+
+      completedRecords.push({
+        habitId: habitId,
+        completedAt: timeWIT,
+        timestamp: Date.now()
+      });
+
+      try {
+        localStorage.setItem('7kaih_records', JSON.stringify(completedRecords));
+      } catch (err) {
+        console.error(err);
+      }
+      
+      const habit = HABITS.find(h => h.id === habitId);
+      showToast(`+1 Poin: ${habit ? habit.questionNumber : 'Pilar'} selesai! (Tercatat ✓)`);
+      renderDashboard();
+
+      // Kirim pembaruan 13 Kolom: Waktu 24h, Poin: 1, dikerjakan/tidak: "Dikerjakan", Total Poin, Centang ✓
+      sendTo13ColumnsSheets({
+        studentName: currentUser.name,
+        studentGrade: currentUser.grade,
+        activityPoint: 1,
+        newRecords: completedRecords,
+        habitId: habitId,
+        actionType: 'ACTIVITY'
+      });
+    }
+
+    // Batalkan Kebiasaan (Undo): Mengurangi 1 Poin
+    function undoHabitDone(habitId) {
+      if (!currentUser.name || !currentUser.grade) {
+        showToast('Identitas siswa belum lengkap. Silakan login kembali.', true);
+        logoutUser();
+        return;
+      }
+
+      completedRecords = completedRecords.filter(r => r.habitId !== habitId);
+      try {
+        localStorage.setItem('7kaih_records', JSON.stringify(completedRecords));
+      } catch (err) {
+        console.error(err);
+      }
+      showToast('Pilar kebiasaan dibatalkan (-1 Poin).');
+      renderDashboard();
+
+      sendTo13ColumnsSheets({
+        studentName: currentUser.name,
+        studentGrade: currentUser.grade,
+        activityPoint: -1,
+        newRecords: completedRecords,
+        habitId: habitId,
+        actionType: 'HABIT_UNDO'
+      });
+    }
+
+    // Tombol Reset Checklist: Mengosongkan ke 0 Poin
+    function resetTodayChecklist() {
+      completedRecords = [];
+      try {
+        localStorage.removeItem('7kaih_records');
+      } catch (err) {
+        console.error(err);
+      }
+      renderDashboard();
+      showToast('Seluruh progres dan skor hari ini telah diatur ulang ke 0.');
+
+      if (currentUser.name && currentUser.grade) {
+        sendTo13ColumnsSheets({
+          studentName: currentUser.name,
+          studentGrade: currentUser.grade,
+          activityPoint: 0,
+          newRecords: [],
+          actionType: 'RESET'
+        });
+      }
+    }
+
+    // Tombol Logout: Menghapus Sesi & Kembali ke Login
+    function logoutUser() {
+      try {
+        localStorage.removeItem('7kaih_user_name');
+        localStorage.removeItem('7kaih_user_grade');
+        localStorage.removeItem('7kaih_records');
+        localStorage.removeItem('7kaih_date');
+        localStorage.clear();
+      } catch (err) {
+        console.error(err);
+      }
+
+      completedRecords = [];
+      currentUser.name = '';
+      currentUser.grade = '';
+      
+      const nameInput = document.getElementById('input-fullname');
+      const gradeInput = document.getElementById('input-grade');
+      if (nameInput) nameInput.value = '';
+      if (gradeInput) gradeInput.value = '';
+
+      const welcomeModal = document.getElementById('modal-welcome');
+      const screenDashboard = document.getElementById('screen-dashboard');
+      const screenLogin = document.getElementById('screen-login');
+
+      if (welcomeModal) {
+        welcomeModal.classList.add('hidden');
+        welcomeModal.classList.remove('flex');
+      }
+      if (screenDashboard) screenDashboard.classList.add('hidden');
+      if (screenLogin) screenLogin.classList.remove('hidden');
+
+      showToast('Sesi telah direset. Berhasil kembali ke menu login.');
+    }
+
+    // Render Tampilan Dashboard
+    function renderDashboard() {
+      const dashUser = document.getElementById('dash-user');
+      const dashGrade = document.getElementById('dash-grade');
+      if (dashUser) dashUser.textContent = currentUser.name || 'Nama Siswa';
+      if (dashGrade) dashGrade.textContent = currentUser.grade || '-';
+
+      const points = completedRecords.length;
+      const totalPointsEl = document.getElementById('total-points');
+      if (totalPointsEl) totalPointsEl.textContent = points;
+      
+      const headerPoints = document.getElementById('header-points');
+      if (headerPoints) headerPoints.textContent = `${points} / 7`;
+
+      const statusBadge = document.getElementById('dash-status-badge');
+      if (statusBadge) {
+        if (points > 0) {
+          statusBadge.textContent = 'Dikerjakan';
+          statusBadge.className = 'font-bold px-2 py-0.5 rounded-md border font-mono text-emerald-700 bg-emerald-50 border-emerald-200';
+        } else {
+          statusBadge.textContent = 'Belum dikerjakan';
+          statusBadge.className = 'font-bold px-2 py-0.5 rounded-md border font-mono text-slate-500 bg-slate-100 border-slate-200';
+        }
+      }
+
+      const pct = Math.round((points / 7) * 100);
+      const progressPercent = document.getElementById('progress-percent');
+      const progressBar = document.getElementById('progress-bar');
+      if (progressPercent) progressPercent.textContent = pct + '%';
+      if (progressBar) progressBar.style.width = pct + '%';
+
+      const badgeTier = document.getElementById('badge-tier');
+      const progressText = document.getElementById('progress-text');
+      if (badgeTier && progressText) {
+        if (points === 7) {
+          badgeTier.textContent = 'Sempurna (100%)';
+          badgeTier.className = 'text-xs font-bold px-2.5 py-1 rounded-lg border text-emerald-700 bg-emerald-50 border-emerald-200';
+          progressText.textContent = 'Luar biasa! Seluruh 7 Pertanyaan Tuntas Hari Ini.';
+        } else if (points >= 4) {
+          badgeTier.textContent = `${points} / 7 Selesai`;
+          badgeTier.className = 'text-xs font-bold px-2.5 py-1 rounded-lg border text-indigo-700 bg-indigo-50 border-indigo-200';
+          progressText.textContent = 'Progres konsisten! Lanjutkan pilar berikutnya.';
+        } else {
+          badgeTier.textContent = `${points} / 7 Selesai`;
+          badgeTier.className = 'text-xs font-bold px-2.5 py-1 rounded-lg border bg-slate-50 text-slate-600 border-slate-200';
+          progressText.textContent = 'Konsistensi membentuk karakter dan masa depan gemilang.';
+        }
+      }
+
+      // Render 7 Cards
+      const grid = document.getElementById('habits-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      HABITS.forEach(h => {
+        const record = completedRecords.find(r => r.habitId === h.id);
+        const isDone = !!record;
+
+        const card = document.createElement('div');
+        card.className = 'rounded-2xl border transition-all duration-200 flex flex-col justify-between overflow-hidden ' +
+          (isDone ? 'bg-slate-900 text-white border-slate-900 shadow-md ring-1 ring-slate-800' : 'bg-white text-slate-800 border-slate-200 hover:border-slate-300 shadow-sm');
+
+        card.innerHTML = `
+          <!-- Banner 16:9 Realistis -->
+          <div class="relative h-44 w-full overflow-hidden bg-slate-100">
+            <img
+              src="${h.imageUrl}"
+              alt="${h.title}"
+              class="w-full h-full object-cover transition-transform duration-300 ${isDone ? 'brightness-75' : 'hover:scale-105'}"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-black/25"></div>
+
+            <!-- Top Badges -->
+            <div class="absolute top-3 left-3 right-3 flex items-center justify-between">
+              <span class="text-xs font-mono font-bold tracking-wider px-2 py-0.5 bg-black/60 text-white backdrop-blur-md rounded-md border border-white/20">
+                ${h.questionNumber}
+              </span>
+              <span class="text-xs font-semibold px-2 py-0.5 bg-white/90 text-slate-800 backdrop-blur-md rounded-md shadow-xs">
+                ${h.tag}
+              </span>
+            </div>
+
+            <!-- Title Overlay -->
+            <div class="absolute bottom-3 left-3 right-3 flex items-center gap-2.5 text-white">
+              <span class="text-2xl drop-shadow-md">${h.icon}</span>
+              <div>
+                <h3 class="text-base font-bold leading-tight drop-shadow-md text-white">${h.title}</h3>
+                <p class="text-xs text-slate-200 font-medium line-clamp-1 drop-shadow-sm">${h.subtitle}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card Content Body -->
+          <div class="p-5 flex-1 flex flex-col justify-between">
+            <div>
+              <p class="text-xs leading-relaxed mb-3 ${isDone ? 'text-slate-300' : 'text-slate-600'}">
+                ${h.description}
+              </p>
+
+              <div class="rounded-xl p-2.5 text-xs mb-4 border ${isDone ? 'bg-slate-800/80 border-slate-700/80 text-slate-300' : 'bg-slate-50 border-slate-100 text-slate-500'}">
+                <span class="font-semibold text-slate-400 block mb-0.5">Nilai Karakter:</span>
+                ${h.principle}
+              </div>
+            </div>
+
+            <!-- Action Area & Jam Penyelesaian Real-Time (Wamena WIT) -->
+            <div class="pt-3 border-t border-slate-200/40">
+              ${isDone
+                ? `<div class="space-y-2">
+                     <div class="flex items-center justify-between text-xs bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-xl text-emerald-300 font-mono">
+                       <span class="font-sans font-semibold">✓ Tuntas (Tercatat ✓)</span>
+                       <span>${record.completedAt}</span>
+                     </div>
+                     <div class="flex items-center gap-2">
+                       <button disabled class="flex-1 py-2 px-3 rounded-xl bg-slate-800 text-slate-400 text-xs font-bold cursor-not-allowed border border-slate-700">
+                         1 Poin Didapat
+                       </button>
+                       <button onclick="undoHabitDone(${h.id})" data-action="undo" data-id="${h.id}" class="py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 text-xs font-medium border border-slate-700 transition-colors cursor-pointer active:scale-95" title="Batalkan">
+                         Batal
+                       </button>
+                     </div>
+                   </div>`
+                : `<button onclick="markHabitDone(${h.id})" data-action="done" data-id="${h.id}" class="w-full py-2.5 px-4 rounded-xl bg-slate-900 hover:bg-indigo-600 text-white font-semibold text-xs tracking-wide transition-all shadow-sm flex items-center justify-center gap-2 cursor-pointer active:scale-[0.99]">
+                     <span>Tandai Selesai</span>
+                     <span class="text-indigo-200 font-mono">(+1 Poin)</span>
+                   </button>`
+              }
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      // Render Riwayat Aktivitas
+      const logList = document.getElementById('log-list');
+      const logCounter = document.getElementById('log-counter');
+      if (logCounter) logCounter.textContent = `${completedRecords.length}/7 Pilar`;
+
+      if (logList) {
+        if (completedRecords.length === 0) {
+          logList.innerHTML = `
+            <div class="text-center py-8 px-4 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+              <span class="text-2xl text-slate-300 block mb-1">⏱️</span>
+              <p class="text-xs font-semibold text-slate-600">Belum ada aktivitas tercatat</p>
+              <p class="text-xs text-slate-400 mt-1">Selesaikan salah satu dari 7 kebiasaan di samping untuk mencatat waktu penyelesaian.</p>
+            </div>
+          `;
+        } else {
+          logList.innerHTML = '';
+          completedRecords.forEach(rec => {
+            const h = HABITS.find(item => item.id === rec.habitId);
+            if (!h) return;
+
+            const item = document.createElement('div');
+            item.className = 'p-3 rounded-xl bg-slate-50 border border-slate-200/80 flex items-start justify-between gap-3';
+            item.innerHTML = `
+              <div class="flex items-start gap-2.5">
+                <span class="text-xl mt-0.5">${h.icon}</span>
+                <div>
+                  <p class="text-xs font-bold text-slate-900 leading-tight">${h.title}</p>
+                  <span class="text-xs text-slate-500 block mt-0.5">${h.questionNumber} • ${h.tag}</span>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <span class="text-xs font-extrabold text-emerald-600 block font-mono">+1 Poin</span>
+                <span class="text-xs text-slate-500 font-mono mt-0.5 block">${rec.completedAt}</span>
+              </div>
+            `;
+            logList.appendChild(item);
+          });
+        }
+      }
+    }
+
+    // Registrasi Event Listener
+    function setupEventListeners() {
+      const formLogin = document.getElementById('form-login');
+      if (formLogin) {
+        formLogin.addEventListener('submit', function(e) {
+          e.preventDefault();
+          submitLogin();
+        });
+      }
+
+      const btnModalStart = document.getElementById('btn-modal-start');
+      if (btnModalStart) {
+        btnModalStart.addEventListener('click', function(e) {
+          e.preventDefault();
+          closeWelcomeModal();
+        });
+      }
+
+      const btnMotivasi = document.getElementById('btn-header-motivasi');
+      if (btnMotivasi) {
+        btnMotivasi.addEventListener('click', function(e) {
+          e.preventDefault();
+          openMotivationModal();
+        });
+      }
+
+      const btnReset = document.getElementById('btn-header-reset');
+      if (btnReset) {
+        btnReset.addEventListener('click', function(e) {
+          e.preventDefault();
+          resetTodayChecklist();
+        });
+      }
+
+      const btnLogout = document.getElementById('btn-header-logout');
+      if (btnLogout) {
+        btnLogout.addEventListener('click', function(e) {
+          e.preventDefault();
+          logoutUser();
+        });
+      }
+
+      const habitsGrid = document.getElementById('habits-grid');
+      if (habitsGrid) {
+        habitsGrid.addEventListener('click', function(e) {
+          const btnDone = e.target.closest('[data-action="done"]');
+          if (btnDone) {
+            const habitId = parseInt(btnDone.getAttribute('data-id'), 10);
+            if (habitId) markHabitDone(habitId);
+            return;
+          }
+
+          const btnUndo = e.target.closest('[data-action="undo"]');
+          if (btnUndo) {
+            const habitId = parseInt(btnUndo.getAttribute('data-id'), 10);
+            if (habitId) undoHabitDone(habitId);
+            return;
+          }
+        });
+      }
+    }
+
+    window.submitLogin = submitLogin;
+    window.openMotivationModal = openMotivationModal;
+    window.closeWelcomeModal = closeWelcomeModal;
+    window.toggleSheetsModal = toggleSheetsModal;
+    window.testConnectionActiveStudent = testConnectionActiveStudent;
+    window.markHabitDone = markHabitDone;
+    window.undoHabitDone = undoHabitDone;
+    window.resetTodayChecklist = resetTodayChecklist;
+    window.logoutUser = logoutUser;
+    window.renderDashboard = renderDashboard;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      let storedId = localStorage.getItem('7kaih_user_id');
+      if (!storedId) {
+        storedId = 'SISWA-' + Date.now().toString(36).toUpperCase() + '-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+        localStorage.setItem('7kaih_user_id', storedId);
+      }
+      currentUser.id = storedId;
+
+      setupEventListeners();
+
+      try {
+        const savedName = localStorage.getItem('7kaih_user_name');
+        const savedGrade = localStorage.getItem('7kaih_user_grade');
+        const savedRecords = localStorage.getItem('7kaih_records');
+        const savedDate = localStorage.getItem('7kaih_date');
+        
+        const p = getJayapuraParts(new Date());
+        const todayJayapuraStr = `${p.year}-${p.month}-${p.day}`;
+
+        if (savedName && savedName.trim().length > 0) {
+          currentUser.name = savedName.trim();
+          currentUser.grade = savedGrade ? savedGrade.trim() : '';
+
+          if (savedDate === todayJayapuraStr && savedRecords) {
+            try {
+              completedRecords = JSON.parse(savedRecords);
+            } catch (e) {
+              completedRecords = [];
+            }
+          } else {
+            completedRecords = [];
+            localStorage.setItem('7kaih_date', todayJayapuraStr);
+          }
+
+          document.getElementById('screen-login').classList.add('hidden');
+          document.getElementById('screen-dashboard').classList.remove('hidden');
+          renderDashboard();
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

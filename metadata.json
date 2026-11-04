@@ -1,0 +1,6 @@
+{
+  "name": "7 KAIH - 7 Kebiasaan Anak Indonesia Hebat",
+  "description": "Aplikasi edukasi interaktif untuk membangun 7 Kebiasaan Anak Indonesia Hebat dengan jam real-time, poin bintang, sertifikat, dan perayaan ceria.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
