@@ -1,4 +1,5 @@
 
+
 name: Deploy SMANKAIH
 
 on:
@@ -17,7 +18,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     environment:
@@ -39,10 +40,10 @@ jobs:
       - name: Build website
         run: npm run build
 
-      - name: Configure GitHub Pages
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
-      - name: Upload website
+      - name: Upload build files
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
@@ -50,4 +51,3 @@ jobs:
       - name: Deploy website
         id: deployment
         uses: actions/deploy-pages@v4
-        
